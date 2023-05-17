@@ -7,15 +7,14 @@ var generatePassword = function() {
   var uppercaseCharacters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   var specialCharacters = ['!', '"', '#', '$', '%', '&', '*', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '^', '_', '~'];
+  var possibleCharacters = [];
 
 
   // Prompting user for desired password length
   passwordLength = window.prompt("Enter a desired password length between 8 and 128 characters:");
   if (passwordLength < 8 || passwordLength > 128) {
     return "Please choose a valid number of characters.";
-  } else if (isNaN(passwordLength)) {
-    passwordLength = prompt("Please enter a valid number.");
-  }
+  };
 
   // Prompting user for character types to include in the password
   lowercaseOption = confirm("Your password will include lowercase characters.");
@@ -30,6 +29,28 @@ var generatePassword = function() {
   if (lowercaseOption === false && uppercaseOption === false && numericOption === false && specialOption === false) {
     return "Please select at least one character type.";
   };
+
+  //combining password criteria
+  if (lowercaseOption) {
+    possibleCharacters = possibleCharacters.concat(lowercaseCharacters);
+  }
+  if (uppercaseOption) {
+    possibleCharacters = possibleCharacters.concat(uppercaseCharacters);
+  }
+  if (numericOption) {
+    possibleCharacters = possibleCharacters.concat(numericCharacters);
+  }
+  if (specialOption) {
+    possibleCharacters = possibleCharacters.concat(specialCharacters);
+  }
+
+  // Creating the password with random combination of chosen password criteria
+  let Password = ""
+  for (let i = 0; i < passwordLength; i++) {
+    let random =[Math.floor(Math.random() * possibleCharacters.length)];
+    Password = Password + possibleCharacters[random];
+  }
+  return Password;
 };
 
 var generateBtn = document.querySelector("#generate");
