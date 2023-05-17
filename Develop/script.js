@@ -17,7 +17,7 @@ var generatePassword = function() {
   };
 
   // Prompting user for character types to include in the password
-  lowercaseOption = confirm("Your password will include lowercase characters.");
+  lowercaseOption = confirm("Your password will include lowercase characters. (Choose 'OK' to confirm or 'cancel' to decline)");
   
   uppercaseOption = confirm("Your password will include uppercase characters.");
 
